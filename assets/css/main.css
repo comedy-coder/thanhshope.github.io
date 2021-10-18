@@ -1442,3 +1442,15 @@ i.home-product-item__action--fill
     font-size: 1.2rem;
     color: #737373;
 }
+.auth-form__input.invalid
+{   
+    border: solid 1px var(--primary-color);
+    border-radius: 3px;
+}
+.form-message
+{
+    color: var(--primary-color);
+    font-size: 1.4rem;
+    padding: 5px;
+    display: block;
+}

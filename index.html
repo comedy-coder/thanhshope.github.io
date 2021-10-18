@@ -270,10 +270,10 @@
                                 <a href="#" class="categoly-item__link">Trang điểm mặt</a>
                             </li>
                             <li class="categoly-item">
-                                <a href="#" class="categoly-item__link">Trang điểm mặt</a>
+                                <a href="#" class="categoly-item__link">Trang điểm mắt</a>
                             </li>
                             <li class="categoly-item">
-                                <a href="#" class="categoly-item__link">Trang điểm mặt</a>
+                                <a href="#" class="categoly-item__link">Trang điểm môi</a>
                             </li>
                         </ul>
                     </nav>
@@ -915,15 +915,17 @@
                     </div>
                      <div class="auth-form__form">
                     <div class="auth-form__gruop">
+                        <input id ="Email" name ="Email"type="text" class="auth-form__input" placeholder="Email của bạn">
+                        <span class="form-message"></span>
                         
-                    <input id ="Email" type="text" class="auth-form__input" placeholder="Email của bạn">
-                    
                     </div>
                     <div class="auth-form__gruop">
-                    <input id="password" type="password" class="auth-form__input" placeholder="Mật khẩu của bạn">
+                    <input id="password" name="password" type="password" class="auth-form__input" placeholder="Mật khẩu của bạn">
+                    <span class="form-message"></span>
                     </div>  
                     <div class="auth-form__gruop">
-                    <input id="repassword" type="password" class="auth-form__input" placeholder="Nhập lại mật khẩu của bạn">
+                        <input id="repassword" name="repassword" type="password" class="auth-form__input" placeholder="Nhập lại mật khẩu của bạn">
+                        <span class="form-message"></span>
                     </div>  
                 </div>
                 <div class="auth-form__aside">
@@ -960,7 +962,7 @@
                 </form>
               
                 <!-- Login form -->
-            
+                <form action="" method="POST" class="form" id="form-2">
                 <div class="auth-form__resign "> 
                     <a class="close-tab-resign">
                         <i class=" fas fa-times close_tab__icon "></i>
@@ -976,11 +978,12 @@
                     </div>
                      <div class="auth-form__form">
                     <div class="auth-form__gruop">
-                    <input type="text" class="auth-form__input" placeholder="Email của bạn">
-                    
+                    <input id="Email_1" name ="Email" type="text" class="auth-form__input" placeholder="Email của bạn">
+                    <span class="form-message"></span>
                     </div>
                     <div class="auth-form__gruop">
-                    <input type="password" class="auth-form__input" placeholder="Mật khẩu của bạn">
+                    <input id="password_1"name="password" type="password" class="auth-form__input" placeholder="Mật khẩu của bạn">
+                    <span class="form-message"></span>
                     </div>  
                    
                 </div>
@@ -1015,8 +1018,9 @@
                         </span>
                     </a>
                 </div>
-                
+            
                 </div>
+                </form>
                 </div>
             </div>
         
@@ -1031,7 +1035,7 @@ Validator(
  {
    form: '#form-1',
    errorSelector: ('.form-message'),
-   formGruopSelector : ('.form-gruop'),
+   formGruopSelector : ('.auth-form__gruop'),
    rules: [
        Validator.isRequired('#Email'),
        Validator.isEmail('#Email'),
@@ -1040,6 +1044,22 @@ Validator(
        Validator.isConfirmed('#repassword',function(){
      return document.querySelector('#form-1 #password').value;
       }, 'Mật khẩu nhập lại không chính xác')
+      ] ,
+      onsubmit : function(data){
+      console.log(data);
+       
+    }
+ });
+ Validator(
+ {
+   form: '#form-2',
+   errorSelector: ('.form-message'),
+   formGruopSelector : ('.auth-form__gruop'),
+   rules: [
+       Validator.isRequired('#Email_1'),
+       Validator.isEmail('#Email_1'),
+       Validator.minLength ( '#password_1' , 6),
+       
       ] ,
       onsubmit : function(data){
       console.log(data);

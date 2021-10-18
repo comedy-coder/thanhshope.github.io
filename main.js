@@ -7,9 +7,10 @@ const closetabresign = document.querySelector('.close-tab-resign')
 const switchResign = document.querySelector('.auth-form__btn-swtich')
 const switchRegister = document.querySelector('.auth-form__btn-swtichs')
 const overModal = document.querySelector('.modal__overlay')
-console.log(overModal);
-console.log(switchRegister)
-console.log(resignElement)
+const controlBack = document.querySelectorAll('.auth-form__controls-back')
+const modalBack = document.querySelector('.modal__overlay')
+
+console.log(modalBack)
 // registerbtn
  function handlerRegister()
  {
@@ -60,7 +61,18 @@ function handlerSwitchresigter()
 
 }
 switchRegister.onclick = handlerSwitchresigter
+function handlerBackbtn ()
+{
+    modal.classList.remove('acitve-modal')
+    registerElement.classList.remove('auth-form-register')
+    resignElement.classList.remove('auth-form-resign')
+}
+overModal.onclick = handlerBackbtn;
+controlBack.forEach(function(rule) {
 
+    rule.onclick = handlerBackbtn;
+})
+;
 // Validator
 function Validator(options) 
     {  
@@ -105,6 +117,7 @@ function Validator(options)
                         {  
                            errorElement.innerText= errorMessage;
                             getParents(inputElement, options.formGruopSelector).querySelector(rule.selector).classList.add('invalid');
+                                                                          
                         }
                         else
                         {   errorElement.innerText = ''
@@ -123,90 +136,93 @@ function Validator(options)
                     //lặp qua từng rule và validate
                     options.rules.forEach(function(rule){
                         var inputElement = formElement.querySelector(rule.selector);
-                       
                         validate(inputElement, rule);
                         var isValid = validate(inputElement, rule);
                         if(!isValid){
                             isFormValid = false;
                         }
-                      });
+                        });
                     if(isFormValid){
                         if(typeof options.onsubmit === 'function')
                         {   var enableInputs = formElement.querySelectorAll('[name]');
-                          
-                            var formValues = Array.from(enableInputs).reduce(function(values,input){
+                        var formValues = Array.from(enableInputs).reduce(function(values,input){
                             switch(input.type)
                             {
                                 case 'radio':
-                               
-                                    
-                                      values[input.name] = formElement.querySelector('input[name="' + input.name + '"]:checked').value;
-                                     break;
-                                      case 'checkbox':
-                                          if(!input.matches(':checked')) return values;
-                                          if(!Array.isArray(values[input.name])){
-                                              values[input.name] = [];
-
-                                          }
-                                          values[input.name].push(input.value);
-                                          break;
-                                      default:
-                                      values[input.name] = input.value;
+                                    values[input.name] = formElement.querySelector('input[name="' + input.name + '"]:checked').value;
+                                   break;
+                                    case 'checkbox':
+                                        if(!input.matches(':checked')) return values;
+                                        if(!Array.isArray(values[input.name])){
+                                            values[input.name] = [];
+                                        }
+                                        values[input.name].push(input.value);
+                                        break;
+                                        default:
+                                            values[input.name] = input.value;
+                                        }
+                                        returnValue = values ;
+                                        console.log(returnValue);
+                                        return values;
+                                        
+                                    },{});
+                                    options.onsubmit(formValues);
+                                }
                              }
-
-                                    return values;
-                             },{});
-                            
-                           options.onsubmit(formValues);
-                            
-                        
                         }
+
+
+                                    
+                                    
+                        if (formElement){
+                           options.rules.forEach(function(rule)
+                            
+                            {    // lưu lại các rules cho mỗi input
+                          
+                             if(Array.isArray(selectorRules[rule.selector]))
+                              {
+                                  selectorRules[rule.selector].push(rule.test) ; //lưu key và value của rule vào mảng trong tình huống đã có một value trong array
+                                  //push thêm một rule array đã có vào object
+                              }
+                              else
+                              {   selectorRules[rule.selector] =[rule.test]; // lưu key và value của rule vào màng trong tình huống mảng trống ( chưa có giá trị)
+                            }
+                
+                               var inputElements = formElement.querySelectorAll(rule.selector);
+                               
+                               Array.from(inputElements).forEach(function(inputElement) {
+                                inputElement.onblur = function()
+                                   {
+                                       
+                                    validate(inputElement, rule);
+                                   }
+                                   // Xử lý mỗi khi người dùng  nhập vào input
+                                     inputElement.oninput = function (){
+                                    var errorElement = getParents(inputElement, options.formGruopSelector).querySelector('.form-message');
+                                    errorElement.innerText = '';
+                                    getParents(inputElement, options.formGruopSelector).querySelector(rule.selector).classList.remove('invalid');
+                                    }
+                               })
+                
+                            
+                
+                           });
+                           
+                            
+                        }
+                    
                     }
-                }
+                    }
+                            
+                           
+                            
         
+                        
+                       
       
 
             // xử lý lặp qua mỗi rule(lắng nghe sự kiện blur, input)
        // lấy element của form cần validate
-        if (formElement){
-           options.rules.forEach(function(rule)
-            
-            {    // lưu lại các rules cho mỗi input
-          
-             if(Array.isArray(selectorRules[rule.selector]))
-              {
-                  selectorRules[rule.selector].push(rule.test) ; //lưu key và value của rule vào mảng trong tình huống đã có một value trong array
-                  //push thêm một rule array đã có vào object
-              }
-              else
-              {   selectorRules[rule.selector] =[rule.test]; // lưu key và value của rule vào màng trong tình huống mảng trống ( chưa có giá trị)
-            }
-
-               var inputElements = formElement.querySelectorAll(rule.selector);
-               
-               Array.from(inputElements).forEach(function(inputElement) {
-                inputElement.onblur = function()
-                   {
-                       
-                    validate(inputElement, rule);
-                   }
-                   // Xử lý mỗi khi người dùng  nhập vào input
-                     inputElement.oninput = function (){
-                    var errorElement = getParents(inputElement, options.formGruopSelector).querySelector('.form-message');
-                    errorElement.innerText = '';
-                    getParents(inputElement, options.formGruopSelector).querySelector(rule.selector).classList.remove('invalid');
-                    }
-               })
-
-            
-
-           });
-           
-            
-        }
-    
-    }
-    }
 
     
 Validator.isRequired = function(selector,message){
@@ -250,3 +266,4 @@ Validator.isConfirmed = function(selector , passwordconfirmation,message ) {
             return value === passwordconfirmation () ? undefined : message || 'Giá trị nhập vào không đúng'
         }
     }}
+    console.log(returnValue);
