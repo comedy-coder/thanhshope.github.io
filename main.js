@@ -9,8 +9,10 @@ const switchRegister = document.querySelector('.auth-form__btn-swtichs')
 const overModal = document.querySelector('.modal__overlay')
 const controlBack = document.querySelectorAll('.auth-form__controls-back')
 const modalBack = document.querySelector('.modal__overlay')
-
-console.log(modalBack)
+const cartBtn  = document.querySelector('.header__cart-wrap')
+const cartlistElement =document.querySelector('.header__cart-list')
+var isClick = false    ;
+console.log(cartBtn);
 // registerbtn
  function handlerRegister()
  {
@@ -73,6 +75,15 @@ controlBack.forEach(function(rule) {
     rule.onclick = handlerBackbtn;
 })
 ;
+
+// cart Btn
+    cartBtn.onclick = function () {
+    
+    isClick= !isClick;
+    cartlistElement.classList.toggle("active-cart-list", isClick);
+     };
+
+
 // Validator
 function Validator(options) 
     {  
@@ -162,7 +173,7 @@ function Validator(options)
                                             values[input.name] = input.value;
                                         }
                                         returnValue = values ;
-                                        console.log(returnValue);
+                                
                                         return values;
                                         
                                     },{});
@@ -266,4 +277,3 @@ Validator.isConfirmed = function(selector , passwordconfirmation,message ) {
             return value === passwordconfirmation () ? undefined : message || 'Giá trị nhập vào không đúng'
         }
     }}
-    console.log(returnValue);

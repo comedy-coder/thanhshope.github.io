@@ -1,8 +1,15 @@
-:root
-{
+:root{
+    --primary-color: #EE4D2D;
     --white-color: #fff;
-    --black-color: #000;
-    --text-color: #333;
+    --black-color : #000;
+    --text-color :#333;
+    --border-color: #dbdbdb;
+
+    --navbar-heigh:34px;
+    --header-heigh:120px;
+    --header-with-search : calc(var(--header-heigh) - var(--navbar-heigh));
+    --start-gold-color : #fece3e;
+    --header-sort-heigh : 46px;
 }
 *
 {
@@ -16,15 +23,7 @@ html
     box-sizing: border-box;
 }
 /* Reponsive */
-.grid{
-    width:1200px;
-    max-width: 100%;
-    margin: 0 auto;
-}
-.grid__full-width
-{
-    width: 100%;
-}
+
 .grid__row{
     display: flex;
     
